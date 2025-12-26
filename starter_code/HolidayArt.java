@@ -13,28 +13,20 @@
 public class HolidayArt {
 
     public static void main(String[] args) {
-        // TODO: Parse command-line argument for tree height (default: 5)
-        int height = 5;
-
-        // TODO: Print the tree
+        int height = args.length > 0 ? Integer.parseInt(args[0]) : 5;
         printTree(height);
     }
 
-    /**
-     * Prints a Christmas tree with the given height.
-     * 
-     * @param height Number of branch levels (not including star and trunk)
-     */
     public static void printTree(int height) {
-        // TODO: Implement this method
-        //
-        // Steps:
-        // 1. Print the star on top (centered)
-        // 2. Loop through each level of branches
-        // - Calculate spaces needed for centering
-        // - Calculate stars needed (1, 3, 5, 7, ...)
-        // 3. Print the trunk (centered)
-
-        System.out.println("Implement me!");
+        StringBuilder tree = new StringBuilder();
+        int maxWidth = Math.max(3, height * 2 - 1);
+        for(int i = 0; i < height; i++) {
+            int stars = i * 2 + 1;
+            int spaces = (maxWidth - stars) / 2;
+            if(i == 0) tree.append(" ".repeat(spaces)).append("\u001B[33m★").append("\n");
+            else tree.append(" ".repeat(spaces)).append("\u001B[32m*".repeat(stars)).append("\n");
+        }
+        tree.append(" ".repeat(maxWidth/2-1)).append("\u001B[38;5;130m|||").append("\n\n\u001B[0mHappy Holidays!\n");
+        System.out.println(tree.toString());
     }
 }
